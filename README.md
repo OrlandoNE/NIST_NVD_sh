@@ -1,4 +1,4 @@
-# NVD JSON Data Update Script with Historical and Incremental Updates
+# NVD NVD API 2.0 JSON Data Update Script with Historical and Incremental Updates (2025)
 
 ## Overview
 This script automates the process of retrieving and maintaining a local repository of National Vulnerability Database (NVD) CVE data using the NVD REST API v2.0. It supports historical data retrieval from 1999 onward and efficiently updates the local dataset with only modified CVEs in subsequent runs. The script ensures compliance with API restrictions, such as the 120-day date range limit, while offering features to handle large datasets with optimal resource usage.
