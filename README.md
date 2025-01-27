@@ -1,47 +1,31 @@
-# NIST_NVD_sh
-NIST NVD JSON Data Update Script with Historical and Incremental Update - REST API v2.0
-################################################################################
 # NVD JSON Data Update Script with Historical and Incremental Updates
-#
-# Purpose:
-#   - Retrieve and maintain a local repository of NVD CVE data using REST API v2.0.
-#   - Fetch historical CVE data from 1999 onward on the first run.
-#   - Efficiently fetch only modified CVEs using `modStartDate` and `modEndDate` 
-#     for subsequent runs.
-#   - Ensure compliance with API restrictions, including the 120-day date range limit.
-#
-# Features:
-#   - Dynamically fetches historical data year by year and quarter by quarter 
-#     using `pubStartDate` and `pubEndDate` for initial setup.
-#   - Tracks the last successful update to fetch only incremental CVEs in later runs.
-#   - Handles paginated responses to fetch all CVE data within each range.
-#   - Saves quarterly data into JSON files and supports merging for comprehensive analysis.
-#   - Includes historical coverage starting from the first official CVE (CVE-1999-0001).
-#
-# Why Merge Incrementally:
-#   - Loading all JSON files into memory at once can cause resource exhaustion.
-#   - Incremental merging processes files in smaller chunks, reducing memory usage 
-#     and ensuring efficient handling of large datasets.
-#
-# Requirements:
-#   - `curl` for HTTP requests.
-#   - `jq` for JSON processing.
-#   -  8 GB RAM, 40 GB free local storage (Ubuntu)
-#
-# Usage:
-#   1. Replace `YOUR_API_KEY` with your valid NVD API key.
-#   2. Run the script: `./nvd_json.sh`.
-#   3. Optionally, schedule the script using cron for periodic updates.
-#
-# Example Cron Job:
-#   0 2 * * * /path/to/nvd_json.sh >> /path/to/nvd_update.log 2>&1
-#
-# API References:
-#   - API Developers Getting Started:  https://nvd.nist.gov/developers/start-here
-#   - API Documentation: https://nvd.nist.gov/developers/vulnerabilities
-#   - API Endpoint: https://services.nvd.nist.gov/rest/json/cves/2.0
-#
-# Author: Orlando Stevenson
-# Date: 01.26.2025
-# Version: 1.0
-################################################################################
+
+## Overview
+This script automates the process of retrieving and maintaining a local repository of National Vulnerability Database (NVD) CVE data using the NVD REST API v2.0. It supports historical data retrieval from 1999 onward and efficiently updates the local dataset with only modified CVEs in subsequent runs. The script ensures compliance with API restrictions, such as the 120-day date range limit, while offering features to handle large datasets with optimal resource usage.
+
+## Features
+- **Historical Data Fetching**: Dynamically fetches CVE data year by year and quarter by quarter using `pubStartDate` and `pubEndDate` during the initial setup.
+- **Incremental Updates**: Tracks the last successful update date and fetches only modified CVEs using `modStartDate` and `modEndDate` in subsequent runs.
+- **Paginated Response Handling**: Automatically handles API pagination to retrieve all CVE data within a given range.
+- **Data Storage**: Saves data quarterly in JSON files for modular and efficient analysis.
+- **Merging Support**: Supports merging incremental updates for comprehensive data management.
+- **Full Historical Coverage**: Includes all CVEs starting from CVE-1999-0001.
+
+## Why Incremental Merging?
+- **Efficiency**: Loading all JSON files into memory at once can cause resource exhaustion. Incremental merging processes smaller chunks of data, reducing memory usage and improving performance.
+- **Scalability**: Ensures the script can handle large datasets without overwhelming system resources.
+
+## Requirements
+- **Software**:
+  - `curl`: For HTTP requests.
+  - `jq`: For JSON processing.
+- **System**:
+  - Minimum 8 GB RAM.
+  - 40 GB free local storage.
+  - Tested on Ubuntu.
+
+## Usage
+1. Replace `YOUR_API_KEY` with your valid NVD API key.
+2. Make the script executable:  
+   ```bash
+   chmod +x nvd_json.sh
